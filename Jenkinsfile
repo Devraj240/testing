@@ -1,64 +1,59 @@
 pipeline {
-    environment {
-        DOCKERHUB_CREDENTIALS= credentials('dockerHub')
-        
-        
-    }
     agent any
+     environment {
+     AWS_ACCOUNT_ID="740395013651"
+     AWS_DEFAULT_REGION="us-west-1b" 
+     IMAGE_REPO_NAME="ecrjenkins"
+     IMAGE_TAG="latest"
+     REPOSITORY_URI = "public.ecr.aws/c2h4z6p2/ecrjenkins"
+   }
 
     stages {
-        stage('CLONEING') {
+        stage('LOGIN INTO ECR') {
             steps {
-                echo 'Cloning github repository'
-                git url:'https://github.com/Devraj240/testing.git', branch: 'main'
-                
+                script{
+                    sh " aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c2h4z6p2"
+                }
             }
         }
         
+        stage('GIT CLONE '){
+            steps{
+                script{
+                    git url:'https://github.com/Devraj240/testing.git', branch: 'main'
+                }
+            }
+        }
+        
+        stage('BUILDING') {
             steps {
                 echo 'Building kuch image '
-                sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/img:latest .' 
+                sh 'docker build -t ${IMAGE_REPO_NAME}:${IMAGE_TAG} .' 
             }
         }
         
-        stage('LOGIN INTO DOCKER HUB') {
+        stage('PUSHIN INTO ECR') {
             steps {
-                sh ' echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin '
-                echo 'You have login sucessfully'
-                
-            }
-        }
-        
-        stage('PUSHING IMAGE') {
-            steps {
-                
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/img:latest'
-                echo 'You have sucessfully pushed images on Dockerhub '
-            }
-        }
-        
-        stage('SSH-LOGIN AND DEPLOYMENT') {
-            steps {
-                
-                withCredentials([sshUserPrivateKey(credentialsId: 'sshlogin', usernameVariable: 'name', 
-                keyFileVariable: 'MY_SSH_KEY')]){
-                    sshagent(['30524d69-8f7b-45df-9112-ca758c1ca31a']) {
-                      sh '''
-                      ssh -o StrictHostKeyChecking=no ubuntu@54.183.191.12 " 
-                      sudo -i 
-                      docker ps -a -q | xargs docker stop || 'true'  
-                      docker ps -a -f status=exited -f status=created -q | xargs docker rm || 'true'
-                      docker pull $DOCKERHUB_CREDENTIALS_USR/img:latest 
-                      docker run -d --name dev${BUILD_NUMBER}  -p 8000:8000 $DOCKERHUB_CREDENTIALS_USR/img:latest "
-                      '''
-                      echo 'sucessfully deployed'
-                    }
+                script {
+                    
+                    sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+                    sh "docker push public.ecr.aws/c2h4z6p2/ecrjenkins:latest"
                     
                 }
-                
             }
         }
         
+        stage('DEPLOYMENT') {
+            steps{
+                script {
+                    sh "docker ps -a -q | xargs docker stop || true "
+                    sh "docker ps -a -f status=exited -f status=created -q | xargs docker rm || 'true' "
+                    sh "docker push ${REPOSITORY_URI}:$IMAGE_TAG"
+                    sh "docker run -d --name prod${BUILD_NUMBER} -p 8001:8001 ${REPOSITORY_URI}:$IMAGE_TAG"
+                }
+            }
+        }
+      
     }
 }
 
