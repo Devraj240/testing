@@ -10,7 +10,7 @@ pipeline {
         stage('CLONEING') {
             steps {
                 echo 'Cloning github repository'
-                git url:'https://github.com/Devraj240/kuchbhi.git', branch: 'main'
+                git url:'https://github.com/Devraj240/testing.git', branch: 'main'
                 
             }
         }
