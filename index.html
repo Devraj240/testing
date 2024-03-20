@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevRaj Food Order</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menu,
+.order {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.menu h2,
+.order h2 {
+  margin-top: 0;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.order form {
+  display: grid;
+  gap: 10px;
+}
+
+.order form label {
+  font-weight: bold;
+}
+
+.order form button {
+  padding: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.order form button:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Dev Food Order</h1>
+  </div>
+
+  <div class="menu">
+    <h2>Menu</h2>
+    <ul>
+      <li>Burger - $5</li>
+      <li>Pizza - $8</li>
+      <li>Pasta - $6</li>
+    </ul>
+  </div>
+
+  <div class="order">
+    <h2>Your Order</h2>
+    <form action="#" method="post">
+      <label for="item">Item:</label>
+      <select name="item" id="item">
+        <option value="burger">Burger</option>
+        <option value="pizza">Pizza</option>
+        <option value="pasta">Pasta</option>
+      </select>
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" value="1" min="1">
+      <button type="submit">Add to Cart</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
