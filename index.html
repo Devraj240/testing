@@ -1,104 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevRaj Food Order</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f8f8;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
 
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-}
+        header h1 {
+            margin: 0;
+        }
 
-.menu,
-.order {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-.menu h2,
-.order h2 {
-  margin-top: 0;
-}
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
 
-.menu ul {
-  list-style-type: none;
-  padding: 0;
-}
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
 
-.menu ul li {
-  margin-bottom: 10px;
-}
+        .main-content {
+            padding: 20px;
+        }
 
-.order form {
-  display: grid;
-  gap: 10px;
-}
+        article {
+            margin-bottom: 20px;
+        }
 
-.order form label {
-  font-weight: bold;
-}
-
-.order form button {
-  padding: 10px;
-  border: none;
-  background-color: #4caf50;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.order form button:hover {
-  background-color: #45a049;
-}
-</style>
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>News Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Politics</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">Entertainment</a></li>
+                <li><a href="#">Sports</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="container">
-  <div class="header">
-    <h1>Dev Food Order</h1>
-  </div>
+    <section class="main-content">
+        <article>
+            <h2>Breaking News</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in leo euismod, vehicula libero id, tincidunt lorem.</p>
+        </article>
 
-  <div class="menu">
-    <h2>Menu</h2>
-    <ul>
-      <li>Burger - $5</li>
-      <li>Pizza - $8</li>
-      <li>Pasta - $6</li>
-    </ul>
-  </div>
+        <article>
+            <h2>Latest Updates</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in leo euismod, vehicula libero id, tincidunt lorem.</p>
+        </article>
+    </section>
 
-  <div class="order">
-    <h2>Your Order</h2>
-    <form action="#" method="post">
-      <label for="item">Item:</label>
-      <select name="item" id="item">
-        <option value="burger">Burger</option>
-        <option value="pizza">Pizza</option>
-        <option value="pasta">Pasta</option>
-      </select>
-      <label for="quantity">Quantity:</label>
-      <input type="number" name="quantity" id="quantity" value="1" min="1">
-      <button type="submit">Add to Cart</button>
-    </form>
-  </div>
-</div>
-
+    <footer>
+        <p>&copy; 2024 News Website. All rights reserved.</p>
+    </footer>
 </body>
 </html>
